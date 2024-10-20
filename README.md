@@ -9,8 +9,8 @@ This tool provides functionality to extract text, images, tables, and URLs from 
 
 |               | **PDF** | **DOCX** | **PPTX** |
 | ------------- | ------- | -------- | -------- |
-| **Text**      | - [ ]   | - [ ]    | - [ ]    |
-| **Images**    | - [ ]   | - [ ]    | - [ ]    |
+| **Text**      | - [x]   | - [x]    | - [x]    |
+| **Images**    | - [x]   | - [ ]    | - [x]    |
 | **Tables**    | - [ ]   | - [ ]    | - [ ]    |
 | **URLs**      | - [ ]   | - [ ]    | - [ ]    |
 

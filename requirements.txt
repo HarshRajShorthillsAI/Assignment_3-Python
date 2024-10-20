@@ -1,0 +1,9 @@
+camelot-py
+pytest
+PyPDF2
+python-docx
+python-pptx
+PyMuPDF
+pandas
+opencv-python
+ghostscript

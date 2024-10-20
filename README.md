@@ -7,12 +7,20 @@ This tool provides functionality to extract text, images, tables, and URLs from 
 
 ## Functionalities
 
-|               | **PDF** | **DOCX** | **PPTX** |
-| ------------- | ------- | -------- | -------- |
-| **Text**      | - [x]   | - [x]    | - [x]    |
-| **Images**    | - [x]   | - [ ]    | - [x]    |
-| **Tables**    | - [ ]   | - [ ]    | - [ ]    |
-| **URLs**      | - [ ]   | - [ ]    | - [ ]    |
+- [] Text     |
+- [] Image    |
+- [] Table    | PDF
+- [] Link     |
+
+- [] Text     |
+- [] Image    |
+- [] Table    | DOCX
+- [] Link     |
+
+- [] Text     |
+- [] Image    |
+- [] Table    | PPTX
+- [] Link     |
 
 ### Legend:
 

@@ -7,20 +7,20 @@ This tool provides functionality to extract text, images, tables, and URLs from 
 
 ## Functionalities
 
-- [] Text     |
-- [] Image    |
-- [] Table    | PDF
-- [] Link     |
+- [x] Text
+- [x] Image
+- [] Table      PDF
+- [] Link
 
-- [] Text     |
-- [] Image    |
-- [] Table    | DOCX
-- [] Link     |
+- [x] Text
+- [x] Image
+- [ ] Table     DOCX
+- [ ] Link
 
-- [] Text     |
-- [] Image    |
-- [] Table    | PPTX
-- [] Link     |
+- [x] Text
+- [x] Image
+- [ ] Table     PPTX
+- [ ] Link
 
 ### Legend:
 

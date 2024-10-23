@@ -89,6 +89,6 @@ class Main:
 
 
 if __name__ == "__main__":
-    file_path = "tests/test_files/dir2/PMDocs.pdf"  # Change this to the file you want to process
+    file_path = "tests/test_files/dir2/Class No 1 Jan 2018.pptx"  # Change this to the file you want to process
     main_instance = Main(file_path)
     main_instance.run()

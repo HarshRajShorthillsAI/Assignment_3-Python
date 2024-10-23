@@ -187,7 +187,6 @@ class FileStorage:
                 try:
                     with open(image_path, "wb") as img_file:
                         img_file.write(image_bytes)
-                    print(f"saved image to {image_path}")
                 except Exception as e:
                     print(f"Error writing image to disk: {e}")
 
@@ -218,6 +217,7 @@ class FileStorage:
                 os.makedirs(images_dir)
 
             for idx, image in enumerate(images):
+                image = image['image']
                 if isinstance(image, PILImage.Image):
                     image_bytes = BytesIO()
                     image.save(image_bytes, format='PNG')  # Save in PNG format
@@ -240,7 +240,7 @@ class FileStorage:
         url_filename = os.path.splitext(filename)[0] + "_urls.txt"
         with open(os.path.join(urls_dir, url_filename), "w") as url_file:
             for url_info in urls:
-                url_file.write(f"{url_info['text']}: {url_info['url']}\n")
+                url_file.write(f"url: {url_info}\n")
 
     def save_tables(self, tables, filename: str):
         """Save table data as .csv files."""

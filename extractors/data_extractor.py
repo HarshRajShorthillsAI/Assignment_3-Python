@@ -5,6 +5,7 @@ import pptx  # For PPTX handling
 from PIL import Image as PILImage
 import os
 from io import BytesIO
+import pandas as pd
 
 class DataExtractor:
     def __init__(self, loader):
@@ -71,7 +72,16 @@ class DataExtractor:
             for rel in doc.part.rels:
                 if doc.part.rels[rel].is_external == False:
                     if "image" in doc.part.rels[rel].target_ref:
-                        image = doc.part.rels[rel].target_part.blob
+                        image_binary = doc.part.rels[rel].target_part.blob
+                        image_data = ''
+                        try:
+                            image_data = PILImage.open(BytesIO(image_binary))
+                        except Exception as e:
+                            print("error")
+                        image = {
+                            "image_data": image_binary,
+                            "image": image_data
+                        }
                         images.append(image)
 
         elif self.file_path.endswith('.pptx'):
@@ -93,7 +103,7 @@ class DataExtractor:
                         # Create a dictionary to store image data
                         image_data = {
                             'image': image,
-                            'image_bytes': image_stream,
+                            'image_data': image_stream,
                             'ext': image_ext,
                             'slide_number': slide_number + 1,
                             'shape_number': shape_number + 1
@@ -111,7 +121,9 @@ class DataExtractor:
             pdf_document = fitz.open(self.file_path)
             for page_num in range(len(pdf_document)):
                 page = pdf_document.load_page(page_num)
+
                 links = page.get_links()
+
                 for link in links:
                     if "uri" in link:
                         url = link["uri"]
@@ -131,13 +143,35 @@ class DataExtractor:
         elif self.file_path.endswith('.docx'):
             # DOCX URL extraction
             doc = self.loader.load_file()
+
             for rel in doc.part.rels.values():
-                if "hyperlink" in rel.target_ref:
-                    urls.append(rel.target_ref)
+                # if "hyperlink" in rel.target_ref:
+                urls.append({"url": rel.reltype})
 
         elif self.file_path.endswith('.pptx'):
-            # URLs are rare in PPTX, so skipping this part
-            pass
+            # PPTX URL extraction
+            presentation = pptx.Presentation(self.file_path)
+
+            for slide_num, slide in enumerate(presentation.slides, start=1):
+                for shape in slide.shapes:
+                    # Check if the shape has a hyperlink
+                    if shape.has_text_frame and shape.text_frame:
+                        for paragraph in shape.text_frame.paragraphs:
+                            for run in paragraph.runs:
+                                if run.hyperlink.address:
+                                    urls.append({
+                                    "url": run.hyperlink.address,
+                                    "slide": slide_num,
+                                    "text": run.text
+                                    })
+
+                    # Shapes like images or other elements may have hyperlinks as well
+                    if shape.has_text_frame is False and hasattr(shape, 'hyperlink') and shape.hyperlink and shape.hyperlink.target:
+                        urls.append({
+                        "url": shape.hyperlink.target,
+                        "slide": slide_num,
+                        "shape_type": shape.shape_type
+                        })
 
         return urls
 
@@ -156,6 +190,7 @@ class DataExtractor:
             table_data = []
             for table in doc.tables:
                 table_content = [[cell.text for cell in row.cells] for row in table.rows]
+                df = pd.DataFrame(table_content)
                 table_data.append(table_content)
             return table_data
 

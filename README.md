@@ -9,13 +9,13 @@ This tool provides functionality to extract text, images, tables, and URLs from 
 
 - [x] Text
 - [x] Image
-- [ ] Table      PDF
-- [ ] Link
+- [x] Table      PDF
+- [x] Link
 
 - [x] Text
 - [x] Image
-- [ ] Table     DOCX
-- [ ] Link
+- [x] Table     DOCX
+- [x] Link
 
 - [x] Text
 - [x] Image

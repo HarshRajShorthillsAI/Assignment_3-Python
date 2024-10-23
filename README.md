@@ -19,8 +19,8 @@ This tool provides functionality to extract text, images, tables, and URLs from 
 
 - [x] Text
 - [x] Image
-- [ ] Table     PPTX
-- [ ] Link
+- [x] Table     PPTX
+- [x] Link
 
 ### Legend:
 

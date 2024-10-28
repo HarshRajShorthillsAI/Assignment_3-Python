@@ -4,7 +4,7 @@ from loaders.docx_loader import DOCXLoader
 from loaders.ppt_loader import PPTLoader
 from storage.file_storage import FileStorage
 from storage.sql_storage import SQLStorage
-from extractors.data_extractor import DataExtractor
+from data_extractor import DataExtractor
 
 @pytest.fixture
 def pdf_loader():

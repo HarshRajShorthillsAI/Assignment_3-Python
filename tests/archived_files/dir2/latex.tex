@@ -1,0 +1,35 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage{fontspec}  % Allows font customization
+
+% Set unusual fonts (make sure these fonts are installed on your system)
+\newfontface\unusualfont{Lobster} % Example of a decorative font
+\newfontface\cursivefont{Pacifico} % Example of a cursive font
+\newfontface\seriffont{Playfair Display} % Example of a serif font
+\newfontface\sansfont{Montserrat} % Example of a sans-serif font
+
+\usepackage{graphicx}  % For including images
+\usepackage{titlesec}   % For customizing section titles
+
+% Customizing section titles
+\titleformat{\section}
+  {\normalfont\Huge\unusualfont}{\thesection}{1em}{}
+
+\titleformat{\subsection}
+  {\normalfont\LARGE\cursivefont}{\thesubsection}{1em}{}
+
+\titleformat{\subsubsection}
+  {\normalfont\Large\seriffont}{\thesubsubsection}{1em}{}
+
+\begin{document}
+
+\fontfamily{ppl}\selectfont % Palatino
+This text is in Palatino font.
+
+\fontfamily{cmr}\selectfont % Computer Modern
+This text is in Computer Modern font.
+
+\textbf{This text is bold.}
+\textit{This text is italic.}
+\underline{This text is underlined.}
+
+\end{document}

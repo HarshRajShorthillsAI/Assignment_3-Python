@@ -10,10 +10,12 @@ class Main:
     def __init__(self, file_path):
         self.file_path = file_path
         self.loader = None
-        self.extracted_text = None
-        self.images = None
-        self.urls = None
-        self.tables = None
+        self.extracted_data = {
+          'text': None,
+          'images': None,
+          'urls': None,
+          'tables': None  
+        }
         self.output_dir = None
 
     def determine_loader(self):
@@ -37,11 +39,19 @@ class Main:
         # Create an instance of DataExtractor for extracting content
         extractor = DataExtractor(self.loader)
 
-        # Extract text, images, URLs, and tables
-        self.extracted_text = extractor.extract_text()
-        self.images = extractor.extract_images()
-        self.urls = extractor.extract_urls() #if self.file_path.endswith(('.pdf', '.docx')) else None
-        self.tables = extractor.extract_tables() #if self.file_path.endswith(('.pdf', '.docx')) else None
+        # Define extractors for each type of data
+        extraction_methods = {
+            'text': extractor.extract_text,
+            'image': extractor.extract_images,
+            'url': extractor.extract_urls,
+            'table': extractor.extract_tables
+        }
+
+        # Execute extraction methods for each data type
+        for data_type, extraction_method in extraction_methods.items():
+            self.extracted_data[data_type] = extraction_method()
+
+        
 
         # Close the file (if applicable)
         if hasattr(self.loader, 'close_file'):
@@ -53,30 +63,22 @@ class Main:
         self.output_dir = os.path.join("extracted_data", base_name)
         file_storage = FileStorage(self.output_dir)
 
-        # Save extracted text, images, URLs, and tables to files
-        if self.extracted_text:
-            file_storage.save(self.extracted_text, os.path.basename(self.file_path), 'text')
-        if self.images:
-            file_storage.save(self.images, os.path.basename(self.file_path), 'image')
-        if self.urls:
-            file_storage.save(self.urls, os.path.basename(self.file_path), 'url')
-        if self.tables:
-            file_storage.save(self.tables, os.path.basename(self.file_path), 'table')
+        # Save each extracted data type to files
+        for data_type, data in self.extracted_data.items():
+            if data:
+                file_storage.save(data, os.path.basename(self.file_path), data_type)
 
     def save_to_database(self):
         # Save the extracted data into SQLite
         db_path = "extracted_data.db"  # Path to your SQLite database
         sql_storage = SQLStorage(db_path)
 
-        # Save extracted data to the database
-        if self.extracted_text:
-            sql_storage.save(self.extracted_text, 'text')
-        if self.images:
-            sql_storage.save(self.images, 'image')
-        if self.urls:
-            sql_storage.save(self.urls, 'url')
-        if self.tables:
-            sql_storage.save(self.tables, 'table')
+        # Save each extracted data type to the database
+        for data_type, data in self.extracted_data.items():
+            if data:
+                sql_storage.save(data, data_type)
+
+        sql_storage.close()
 
         print(f"Extracted data saved to: {self.output_dir} and SQLite database: {db_path}")
 
@@ -87,8 +89,34 @@ class Main:
         self.save_extracted_data()
         self.save_to_database()
 
+    @staticmethod
+    def list_directories_and_files(root_dir):
+        for dirpath, dirnames, filenames in os.walk(root_dir):
+            print(f"Directory: {dirpath}")
+            for filename in filenames:
+                print(f"  File: {filename}")
+            print()  # Blank line for better readability
+
+# import subprocess
 
 if __name__ == "__main__":
+    Main.list_directories_and_files("tests/test_files")
+    
+    # file_path = input("Write valid file path here: ")
+
     file_path = "tests/test_files/dir2/Class No 1 Jan 2018.pptx"  # Change this to the file you want to process
     main_instance = Main(file_path)
+    
     main_instance.run()
+
+    ################# Refactoring ########################
+
+    # main_instance.determine_loader()
+    # main_instance.loader.validate_file()
+    # metadata = main_instance.loader.get_metadata()
+    # print(f"Metadata for {file_path}: {metadata}")
+
+    # main_instance.process_file()
+
+    # for datatypes, data in main_instance.extracted_data.items():
+    #     print(data,"\n\n\n")

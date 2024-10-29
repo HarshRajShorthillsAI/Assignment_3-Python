@@ -163,7 +163,6 @@ cython_debug/
 
 pyAss3/
 extracted_data/*
-tests/test_files/dir1/*
-tests/test_files/dir2/*
-tests/archieved_files
+tests/test_files
+tests/archived_files
 extracted_data.db

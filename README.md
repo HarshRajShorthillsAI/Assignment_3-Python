@@ -30,8 +30,8 @@ This tool provides functionality to extract text, images, tables, and URLs from 
 - [x] Load a file with password protected files
 - [x] Load file with unusual text fonts and styles
 - [ ] Load a file with embedded media (audio, video)
-- [ ] Load file with rotated pages
-- [ ] Load an unsupported file format.
+- [x] Load file with rotated pages
+- [x] Load an unsupported file format.
 - [ ] Load a corrupted file.
 - [ ] Load a file exceeding the maximum allowed size.
 - [ ] Load an empty file (0 bytes).

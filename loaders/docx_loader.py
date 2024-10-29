@@ -48,10 +48,9 @@ class DOCXLoader(FileLoader):
                     # Load the decrypted DOCX content
                     return docx.Document(decrypted_file)
 
-                # If the file is not encrypted, load normally
                 else:
+                    # If the file is not encrypted, load normally
                     return docx.Document(file)
-
         except Exception as e:
             raise ValueError(f"Failed to load password-protected DOCX file: {e}")
         

@@ -7,8 +7,8 @@ class PDFLoader(FileLoader):
 
     def validate_file(self):
         # Ensure that the file is a PDF by checking its extension
-        if not self.file_path.lower().endswith('.pdf'):
-            raise ValueError(f"Invalid file type: {self.file_path} is not a PDF.")
+        if not self.file_path.endswith('.pdf'):
+            raise ValueError(f"Invalid file type: Expected a PDF file.")
         # Further validation can be added here if needed
 
     def load_file(self):

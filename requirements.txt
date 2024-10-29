@@ -7,3 +7,7 @@ PyMuPDF
 pandas
 opencv-python
 ghostscript
+fpdf
+lorem
+msoffcrypto-tool
+python-dotenv

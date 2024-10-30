@@ -72,15 +72,18 @@ class TestSpecialCharacterFileLoading:
 
     def test_special_character_pdf_loading(self):
         pdf_loader = PDFLoader(self.pdf_file)
+        pdf_loader.validate_file()
         docs = pdf_loader.load_file()
         assert docs, "Failed to load the PDF file with special characters in the filename."
 
     def test_special_character_docx_loading(self):
         docx_loader = DOCXLoader(self.docx_file)
+        docx_loader.validate_file()
         docs = docx_loader.load_file()
         assert docs, "Failed to load the DOCX file with special characters in the filename."
 
     def test_special_character_pptx_loading(self):
         pptx_loader = PPTLoader(self.pptx_file)
+        pptx_loader.validate_file()
         docs = pptx_loader.load_file()
         assert docs, "Failed to load the PPTX file with special characters in the filename."

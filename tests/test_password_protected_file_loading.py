@@ -29,6 +29,7 @@ class TestPasswordProtectedFileLoading:
 
         # Instantiate the PDFLoader with the file path and password
         pdf_loader = PDFLoader(file_path=self.protected_pdf_file_path, password=self.pdf_correct_password)
+        pdf_loader.validate_file()
 
         try:
             # Attempt to load the file, which should handle the password authentication internally
@@ -50,6 +51,7 @@ class TestPasswordProtectedFileLoading:
 
         # Instantiate the DOCXLoader with the file path and password
         docx_loader = DOCXLoader(file_path=self.protected_docx_file_path, password=self.docx_correct_password)
+        docx_loader.validate_file()
 
         try:
             # Attempt to load the file, which should handle the password decryption internally
@@ -69,7 +71,7 @@ class TestPasswordProtectedFileLoading:
         try:
             # Initialize the PPTLoader with the path to the protected PPTX file and the correct password
             ppt_loader = PPTLoader(self.protected_pptx_file_path, password=self.pptx_correct_password)
-            
+            ppt_loader.validate_file()
             # Attempt to load the PPTX file
             presentation = ppt_loader.load_file()
 

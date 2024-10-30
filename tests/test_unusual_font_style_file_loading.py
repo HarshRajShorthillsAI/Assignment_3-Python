@@ -18,6 +18,7 @@ class TestUnusualTextFileLoading:
         try:
             # Load the PDF file using PDFLoader
             pdf_loader = PDFLoader(self.pdf_file_path, None)
+            pdf_loader.validate_file()
             pdf_document = pdf_loader.load_file()  # Assuming load_file handles decryption if needed
 
             # Check that we can access the number of pages
@@ -35,6 +36,7 @@ class TestUnusualTextFileLoading:
         try:
             # Load the DOCX file using DOCXLoader
             docx_loader = DOCXLoader(self.docx_file_path, None)
+            docx_loader.validate_file()
             docx_document = docx_loader.load_file()  # Assuming load_file handles decryption if needed
 
             # Check that we can access the number of paragraphs
@@ -52,6 +54,7 @@ class TestUnusualTextFileLoading:
         try:
             # Load the PPTX file using PPTLoader
             ppt_loader = PPTLoader(self.pptx_file_path, None)
+            ppt_loader.validate_file()
             pptx_document = ppt_loader.load_file()  # Assuming load_file handles decryption if needed
 
             # Check that we can access the number of slides

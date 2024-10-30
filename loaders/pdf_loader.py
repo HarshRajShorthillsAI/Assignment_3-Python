@@ -27,7 +27,8 @@ class PDFLoader(FileLoader):
 
             return pdf_document
         except Exception as e:
-            raise ValueError(f"Failed to load PDF file: {e}")
+            error = f'Failed to load PDF file: {e}'
+            raise ValueError(error)
 
     def get_metadata(self):
         """Retrieve metadata from the PDF file."""

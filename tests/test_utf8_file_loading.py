@@ -83,6 +83,7 @@ class TestUTF8FileLoading:
     def test_utf8_encoded_pdf_file_loading(self):
         # Initialize the PDFLoader with the path to the test PDF file
         pdf_loader = PDFLoader(self.pdf_file_path)
+        pdf_loader.validate_file()
 
         # Use PDFLoader's load_file method to open and read the PDF
         pdf_document = pdf_loader.load_file()
@@ -91,7 +92,7 @@ class TestUTF8FileLoading:
     def test_utf8_encoded_docx_file_loading(self):
         #Initialize the DOCXLoader with the path to the test DOCX file
         docx_loader = DOCXLoader(self.docx_file_path)
-        
+        docx_loader.validate_file()
         #Use DOCXLoader's load_file method to load the docx
         docx_document = docx_loader.load_file()
         
@@ -100,7 +101,7 @@ class TestUTF8FileLoading:
     def test_utf8_encoded_pptx_file_loading(self):
         #Initialize the PPTXLoader with the path to the test PPTX file
         pptx_loader = PPTLoader(self.pptx_file_path)
-
+        pptx_loader.validate_file()
         #Use PPTLoader's load_file method to load the pptx
         pptx_document = pptx_loader.load_file()
 

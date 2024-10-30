@@ -52,7 +52,7 @@ class DOCXLoader(FileLoader):
                     # If the file is not encrypted, load normally
                     return docx.Document(file)
         except Exception as e:
-            raise ValueError(f"Failed to load password-protected DOCX file: {e}")
+            raise ValueError(f"Failed to load DOCX file: {e}")
         
     def get_metadata(self):
         # Load the document

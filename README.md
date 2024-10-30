@@ -36,9 +36,9 @@ This tool provides functionality to extract text, images, tables, and URLs from 
 - [ ] Load a file exceeding the maximum allowed size.
 - [x] Load an empty file (0 bytes).
 - [x] Test if load_file raises FileNotFoundError.
-- [ ] Extract text from a file containing only text.
-- [ ] Extract images from a file containing only images.
-- [ ] Extract URLs from a file containing only URLs.
+- [x] Extract text from a file containing only text.
+- [x] Extract images from a file containing only images.
+- [x] Extract URLs from a file containing only URLs.
 - [ ] Extract tables from a file containing only tables.
 - [ ] Extract mixed content (text, images, URLs, tables) from a file.
 - [ ] Extract formatted text and verify formatting is preserved.

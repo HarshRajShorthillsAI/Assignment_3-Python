@@ -185,21 +185,21 @@ class TestPDFExtractor:
 
     def test_extract_text_only(self):
         """TC_014: Test extracting text from text-only PDF"""
-        pdf_content = self.loader.load_file("text_only.pdf")
+        pdf_content = self.loader.load_file("text_only_file.pdf")
         result = self.extractor.extract_text(pdf_content)
         assert isinstance(result, str)
         assert len(result) > 0
 
     def test_extract_images_only(self):
         """TC_015: Test extracting images from image-only PDF"""
-        pdf_content = self.loader.load_file("images_only.pdf")
+        pdf_content = self.loader.load_file("images_only_file.pdf")
         images = self.extractor.extract_images(pdf_content)
         assert isinstance(images, list)
         assert len(images) > 0
 
     def test_extract_mixed_content(self):
         """TC_018: Test extracting mixed content"""
-        pdf_content = self.loader.load_file("mixed_content.pdf")
+        pdf_content = self.loader.load_file("lecs110.pdf")
         result = self.extractor.extract_all_content(pdf_content)
         assert 'text' in result
         assert 'images' in result

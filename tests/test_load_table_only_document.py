@@ -288,12 +288,35 @@ class TestTableOnlyDocumentLoader:
         # Check if any tables were extracted
         assert len(extracted_tables) > 0, "No tables found in the PDF document."
 
-        # Display the loaded table data
-        print("Loaded Table Data:\n")
+        # # Display the loaded table data
+        # print("Loaded Table Data:\n")
+        # for table in extracted_tables:
+        #     for row in table:
+        #         print(row, sep="\t")
+        #     print('')
+
+        # Ensure the folder exists
+        os.makedirs("extracted_data/table_only", exist_ok=True)
+
+        # Create a new DOCX document to save the table data
+        doc = Document()
+
+        # Write extracted tables to the DOCX document
         for table in extracted_tables:
+            # Add a new table to the DOCX for each extracted table
+            doc_table = doc.add_table(rows=0, cols=len(table[0]))
             for row in table:
-                print(row, sep="\t")
-            print('')
+                doc_row = doc_table.add_row().cells
+                for idx, cell_value in enumerate(row):
+                    doc_row[idx].text = cell_value
+
+        # Define the path to save the new DOCX file with extracted content
+        output_docx_path = os.path.join("extracted_data/table_only", "extracted_tables_from_pdf.docx")
+        doc.save(output_docx_path)  # Save the extracted content into the new DOCX file
+
+        # Confirm that the file was saved
+        assert os.path.exists(output_docx_path), "Failed to save the extracted tables to a new DOCX file."
+        return output_docx_path
 
     def test_table_only_docx_file_loading(self):
         # Load the DOCX file and check for tables
@@ -312,12 +335,35 @@ class TestTableOnlyDocumentLoader:
         # Check if any tables were extracted
         assert len(extracted_tables) > 0, "No tables found in the DOCX document."
 
-        # Display the loaded table data
-        print("Loaded Table Data from DOCX:\n")
+        # # Display the loaded table data
+        # print("Loaded Table Data from DOCX:\n")
+        # for table in extracted_tables:
+        #     for row in table:
+        #         print(row, sep="\t")
+        #     print('')
+
+        # Ensure the folder exists
+        os.makedirs("extracted_data/table_only", exist_ok=True)
+
+        # Create a new DOCX document to save the table data
+        output_doc = Document()
+
+        # Write extracted tables to the new DOCX document
         for table in extracted_tables:
+            # Add a new table to the DOCX for each extracted table
+            doc_table = output_doc.add_table(rows=0, cols=len(table[0]))
             for row in table:
-                print(row, sep="\t")
-            print('')
+                doc_row = doc_table.add_row().cells
+                for idx, cell_value in enumerate(row):
+                    doc_row[idx].text = cell_value
+
+        # Define the path to save the new DOCX file with extracted content
+        output_docx_path = os.path.join("extracted_data/table_only", "extracted_tables_from_docx.docx")
+        output_doc.save(output_docx_path)  # Save the extracted content into the new DOCX file
+
+        # Confirm that the file was saved
+        assert os.path.exists(output_docx_path), "Failed to save the extracted tables to a new DOCX file."
+        return output_docx_path
 
     def test_table_only_pptx_file_loading(self):
         # Load the PPTX file and check for tables
@@ -339,9 +385,32 @@ class TestTableOnlyDocumentLoader:
         # Check if any tables were extracted
         assert len(extracted_tables) > 0, "No tables found in the PPTX document."
 
-        # Display the loaded table data
-        print("Loaded Table Data from PPTX:\n")
+        # # Display the loaded table data
+        # print("Loaded Table Data from PPTX:\n")
+        # for table in extracted_tables:
+        #     for row in table:
+        #         print(row, sep="\t")
+        #     print('')
+
+        # Ensure the folder exists
+        os.makedirs("extracted_data/table_only", exist_ok=True)
+
+        # Create a new DOCX document to save the table data
+        doc = Document()
+
+        # Write extracted tables to the DOCX document
         for table in extracted_tables:
+            # Add a new table to the DOCX for each extracted table
+            doc_table = doc.add_table(rows=0, cols=len(table[0]))
             for row in table:
-                print(row, sep="\t")
-            print('')
+                doc_row = doc_table.add_row().cells
+                for idx, cell_value in enumerate(row):
+                    doc_row[idx].text = cell_value
+
+        # Define the path to save the new DOCX file with extracted content
+        output_docx_path = os.path.join("extracted_data/table_only", "extracted_tables_from_pptx.docx")
+        doc.save(output_docx_path)  # Save the extracted content into the new DOCX file
+
+        # Confirm that the file was saved
+        assert os.path.exists(output_docx_path), "Failed to save the extracted tables to a new DOCX file."
+        return output_docx_path

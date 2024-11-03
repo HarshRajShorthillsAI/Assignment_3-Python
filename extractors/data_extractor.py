@@ -1,14 +1,8 @@
 import fitz  # PyMuPDF for PDF handling
 import camelot  # For PDF table extraction
-import docx  # For DOCX handling
 import pptx  # For PPTX handling
 from PIL import Image as PILImage
-import os
 from io import BytesIO
-import pandas as pd
-from loaders.pdf_loader import PDFLoader
-from loaders.docx_loader import DOCXLoader
-from loaders.ppt_loader import PPTLoader
 
 class DataExtractor:
     def __init__(self, loader):
@@ -26,10 +20,13 @@ class DataExtractor:
         else:
             raise ValueError("Unsupported file format for text extraction.")
 
-    def extract_text_from_pdf(self, reader):
+    def extract_text_from_pdf(self, pdf_document):
         text = ""
-        for page in reader.pages:
-            text += page.extract_text()
+
+        for page_number in range(len(pdf_document)):  # Iterate through each page
+            page = pdf_document[page_number]  # Get the page
+            text += page.get_text()            # Extract text from the page
+
         return text
     
     def extract_text_from_docx(self, doc):
@@ -188,7 +185,7 @@ class DataExtractor:
         
     def extract_tables_from_pdf(self):
         tables = camelot.read_pdf(self.file_path, pages="all")
-        return [table.df for table in tables]
+        return [table.df.values.tolist() for table in tables]
 
     def extract_tables_from_docx(self):
         doc = self.loader.load_file()
@@ -201,7 +198,7 @@ class DataExtractor:
         tables = []
         for slide in ppt.slides:
             for shape in slide.shapes:
-                if hasattr(shape, "table"):
+                if shape and shape.has_table:
                     tables.append([
                         [cell.text for cell in row.cells] for row in shape.table.rows
                     ])

@@ -30,6 +30,9 @@ class PDFLoader(FileLoader):
             error = f'Failed to load PDF file: {e}'
             raise ValueError(error)
 
+    def verify_content(self):
+        return super().verify_content()
+    
     def get_metadata(self):
         """Retrieve metadata from the PDF file."""
         try:

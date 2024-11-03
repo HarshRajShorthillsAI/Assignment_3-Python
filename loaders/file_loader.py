@@ -18,6 +18,10 @@ class FileLoader(ABC):
         pass
 
     @abstractmethod
+    def verify_content(self, Document):
+        pass
+
+    @abstractmethod
     def get_fileType(self):
         if self.file_path.endswith('pdf'):
             return "pdf"

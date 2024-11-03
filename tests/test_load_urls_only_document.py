@@ -135,14 +135,34 @@ class TestURLOnlyDocumentLoader:
         pdf_document = pdf_loader.load_file()
         assert pdf_document is not None, "Failed to load the url only PDF document."
 
-        # Extract text from the PDF document
-        extracted_text = ""
-        for page in pdf_document:
-            extracted_text += page.get_text()
+        # # Extract text from the PDF document
+        # extracted_text = ""
+        # for page in pdf_document:
+        #     extracted_text += page.get_text()
 
-        # Display the loaded PDF text
-        print("Loaded PDF Text Content:\n")
-        print(extracted_text)  # Display the entire extracted text on terminal
+        # # Display the loaded PDF text
+        # print("Loaded PDF Text Content:\n")
+        # print(extracted_text)  # Display the entire extracted text on terminal
+
+        # Ensure the folder exists
+        os.makedirs("extracted_data/url_only", exist_ok=True)
+
+        # Create a new DOCX document to store extracted text
+        doc = Document()
+
+        # Extract text from each page in the PDF and add to DOCX
+        for page in pdf_document:
+            extracted_text = page.get_text()
+            doc.add_paragraph(extracted_text)  # Add the page's text as a new paragraph
+            doc.add_page_break()  # Optional: add a page break after each page's text
+
+        # Define the path to save the DOCX file
+        output_docx_path = os.path.join('extracted_data/url_only', "extracted_url_from_pdf.docx")
+        doc.save(output_docx_path)  # Save the extracted content into the DOCX file
+
+        # Confirm that the file was saved
+        assert os.path.exists(output_docx_path), "Failed to save the extracted text to a DOCX file."
+        return output_docx_path
 
     def test_text_only_docx_file_loading(self):
         #Initialize the DOCXLoader with the path to the test DOCX file
@@ -153,17 +173,35 @@ class TestURLOnlyDocumentLoader:
         
         assert docx_document is not None, "Failed to load the url only DOCX document"
 
-        # Extract text from the Document instance
-        extracted_text = []
+        # # Extract text from the Document instance
+        # extracted_text = []
+        # for paragraph in docx_document.paragraphs:
+        #     extracted_text.append(paragraph.text)
+
+        # # Combine the paragraphs into a single string
+        # full_text = "\n".join(extracted_text)
+
+        # # Display the loaded DOCX text
+        # print("Loaded DOCX Text Content:\n")
+        # print(full_text)  # Display the entire extracted text
+
+        # Ensure the folder exists
+        os.makedirs("extracted_data/url_only", exist_ok=True)
+
+        # Create a new DOCX document to store extracted text
+        new_doc = Document()
+
+        # Extract text from each paragraph in the DOCX and add to new DOCX
         for paragraph in docx_document.paragraphs:
-            extracted_text.append(paragraph.text)
+            new_doc.add_paragraph(paragraph.text)  # Add each paragraph as it is
 
-        # Combine the paragraphs into a single string
-        full_text = "\n".join(extracted_text)
+        # Define the path to save the new DOCX file with extracted content
+        output_docx_path = os.path.join("extracted_data/url_only", "extracted_url_from_docx.docx")
+        new_doc.save(output_docx_path)  # Save the extracted content into the new DOCX file
 
-        # Display the loaded DOCX text
-        print("Loaded DOCX Text Content:\n")
-        print(full_text)  # Display the entire extracted text
+        # Confirm that the file was saved
+        assert os.path.exists(output_docx_path), "Failed to save the extracted text to a new DOCX file."
+        return output_docx_path
 
     def test_text_only_pptx_file_loading(self):
         #Initialize the PPTXLoader with the path to the test PPTX file
@@ -174,16 +212,36 @@ class TestURLOnlyDocumentLoader:
 
         assert pptx_document is not None, "Failed to load the url only PPTX document."
 
-        # Extract text from the presentation
-        extracted_text = []
+        # # Extract text from the presentation
+        # extracted_text = []
+        # for slide in pptx_document.slides:
+        #     for shape in slide.shapes:
+        #         if hasattr(shape, "text"):  # Ensure the shape has text
+        #             extracted_text.append(shape.text)
+
+        # # Combine the text from all slides into a single string
+        # full_text = "\n".join(extracted_text)
+
+        # # Display the loaded PPTX text
+        # print("Loaded PPTX Text Content:\n")
+        # print(full_text)  # Display the entire extracted text
+
+        # Ensure the folder exists
+        os.makedirs("extracted_data/url_only", exist_ok=True)
+
+        # Create a new DOCX document to store extracted text
+        new_doc = Document()
+
+        # Extract text from the presentation and add it to the new DOCX
         for slide in pptx_document.slides:
             for shape in slide.shapes:
                 if hasattr(shape, "text"):  # Ensure the shape has text
-                    extracted_text.append(shape.text)
+                    new_doc.add_paragraph(shape.text)  # Add the shape's text as a new paragraph
 
-        # Combine the text from all slides into a single string
-        full_text = "\n".join(extracted_text)
+        # Define the path to save the new DOCX file with extracted content
+        output_docx_path = os.path.join("extracted_data/url_only", "extracted_url_from_pptx.docx")
+        new_doc.save(output_docx_path)  # Save the extracted content into the new DOCX file
 
-        # Display the loaded PPTX text
-        print("Loaded PPTX Text Content:\n")
-        print(full_text)  # Display the entire extracted text
+        # Confirm that the file was saved
+        assert os.path.exists(output_docx_path), "Failed to save the extracted text to a new DOCX file."
+        return output_docx_path

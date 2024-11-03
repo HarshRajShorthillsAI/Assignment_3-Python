@@ -104,19 +104,7 @@ if __name__ == "__main__":
     
     # file_path = input("Write valid file path here: ")
 
-    file_path = "tests/test_files/dir2/Class No 1 Jan 2018.pptx"  # Change this to the file you want to process
+    file_path = "tests/test_files/unit 5.docx"  # Change this to the file you want to process
     main_instance = Main(file_path)
     
     main_instance.run()
-
-    ################# Refactoring ########################
-
-    # main_instance.determine_loader()
-    # main_instance.loader.validate_file()
-    # metadata = main_instance.loader.get_metadata()
-    # print(f"Metadata for {file_path}: {metadata}")
-
-    # main_instance.process_file()
-
-    # for datatypes, data in main_instance.extracted_data.items():
-    #     print(data,"\n\n\n")

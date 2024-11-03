@@ -42,6 +42,9 @@ class PPTLoader(FileLoader):
 
         except Exception as e:
             raise ValueError(f"Failed to load the PPTX file: {e}")
+        
+    def verify_content(self, Document):
+        return super().verify_content(Document)
 
     def get_metadata(self):
         ppt = self.load_file()

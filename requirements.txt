@@ -3,11 +3,9 @@ pytest
 PyPDF2
 python-docx
 python-pptx
-PyMuPDF
 pandas
 opencv-python
 ghostscript
-fpdf
 lorem
 msoffcrypto-tool
 python-dotenv

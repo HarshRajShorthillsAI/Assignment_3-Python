@@ -15,6 +15,7 @@ import docx
 import io
 import msoffcrypto
 from loaders.file_loader import FileLoader
+from exceptions.content_access_exceptions import ContentAccessError
 
 class DOCXLoader(FileLoader):
     def __init__(self, file_path, password=None):
@@ -54,6 +55,9 @@ class DOCXLoader(FileLoader):
         except Exception as e:
             raise ValueError(f"Failed to load DOCX file: {e}")
         
+    def verify_content(self, Document):
+        return super().verify_content(Document)
+
     def get_metadata(self):
         # Load the document
         doc = self.load_file()

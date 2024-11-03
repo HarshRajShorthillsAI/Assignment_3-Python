@@ -12,6 +12,8 @@ from loaders.docx_loader import DOCXLoader
 from loaders.pdf_loader import PDFLoader
 from loaders.ppt_loader import PPTLoader
 
+from extractors.data_extractor import DataExtractor
+
 class TestTextOnlyDocumentLoader:# UTF-8 encoded content with special characters
     text_content = ''' The Rise of Large Language Models: Transforming Communication and Technology
 
@@ -146,14 +148,33 @@ class TestTextOnlyDocumentLoader:# UTF-8 encoded content with special characters
         pdf_document = pdf_loader.load_file()
         assert pdf_document is not None, "Failed to load the text only PDF document."
 
-        # Extract text from the PDF document
-        extracted_text = ""
-        for page in pdf_document:
-            extracted_text += page.get_text()
+        # # Extract text from the PDF document
+        # extracted_text = ""
+        # for page in pdf_document:
+        #     extracted_text += page.get_text()
 
-        # Display the loaded PDF text
-        print("Loaded PDF Text Content:\n")
-        print(extracted_text)  # Display the entire extracted text on terminal
+        # # Display the loaded PDF text
+        # print("Loaded PDF Text Content:\n")
+        # print(extracted_text)  # Display the entire extracted text on terminal
+
+        # Ensure the folder exists
+        os.makedirs("extracted_data/text_only", exist_ok=True)
+
+        # Create a new DOCX document to store extracted text
+        new_doc = Document()
+
+        pdf_text_extractor = DataExtractor(pdf_loader)
+        text = pdf_text_extractor.extract_text_from_pdf(pdf_document)
+
+        new_doc.add_paragraph(text)
+
+        # Define the path to save the DOCX file
+        output_docx_path = os.path.join('extracted_data/text_only', "extracted_text_from_pdf.docx")
+        new_doc.save(output_docx_path)  # Save the extracted content into the DOCX file
+
+        # Confirm that the file was saved
+        assert os.path.exists(output_docx_path), "Failed to save the extracted text to a DOCX file."
+        return output_docx_path
 
     def test_text_only_docx_file_loading(self):
         #Initialize the DOCXLoader with the path to the test DOCX file
@@ -164,17 +185,36 @@ class TestTextOnlyDocumentLoader:# UTF-8 encoded content with special characters
         
         assert docx_document is not None, "Failed to load the text only DOCX document"
 
-        # Extract text from the Document instance
-        extracted_text = []
-        for paragraph in docx_document.paragraphs:
-            extracted_text.append(paragraph.text)
+        # # Extract text from the Document instance
+        # extracted_text = []
+        # for paragraph in docx_document.paragraphs:
+        #     extracted_text.append(paragraph.text)
 
-        # Combine the paragraphs into a single string
-        full_text = "\n".join(extracted_text)
+        # # Combine the paragraphs into a single string
+        # full_text = "\n".join(extracted_text)
 
-        # Display the loaded DOCX text
-        print("Loaded DOCX Text Content:\n")
-        print(full_text)  # Display the entire extracted text
+        # # Display the loaded DOCX text
+        # print("Loaded DOCX Text Content:\n")
+        # print(full_text)  # Display the entire extracted text
+
+        # Ensure the folder exists
+        os.makedirs("extracted_data/text_only", exist_ok=True)
+
+        # Create a new DOCX document to store extracted text
+        new_doc = Document()
+
+        docx_text_extractor = DataExtractor(docx_loader)
+        text = docx_text_extractor.extract_text_from_docx(docx_document)
+
+        new_doc.add_paragraph(text)
+
+        # Define the path to save the new DOCX file with extracted content
+        output_docx_path = os.path.join("extracted_data/text_only", "extracted_text_from_docx.docx")
+        new_doc.save(output_docx_path)  # Save the extracted content into the new DOCX file
+
+        # Confirm that the file was saved
+        assert os.path.exists(output_docx_path), "Failed to save the extracted text to a new DOCX file."
+        return output_docx_path
 
     def test_text_only_pptx_file_loading(self):
         #Initialize the PPTXLoader with the path to the test PPTX file
@@ -185,16 +225,21 @@ class TestTextOnlyDocumentLoader:# UTF-8 encoded content with special characters
 
         assert pptx_document is not None, "Failed to load the text only PPTX document."
 
-        # Extract text from the presentation
-        extracted_text = []
-        for slide in pptx_document.slides:
-            for shape in slide.shapes:
-                if hasattr(shape, "text"):  # Ensure the shape has text
-                    extracted_text.append(shape.text)
+        # Ensure the folder exists
+        os.makedirs("extracted_data/text_only", exist_ok=True)
 
-        # Combine the text from all slides into a single string
-        full_text = "\n".join(extracted_text)
+        # Create a new DOCX document to store extracted text
+        new_doc = Document()
 
-        # Display the loaded PPTX text
-        print("Loaded PPTX Text Content:\n")
-        print(full_text)  # Display the entire extracted text
+        pptx_text_extractor = DataExtractor(pptx_loader)
+        text = pptx_text_extractor.extract_text_from_pptx(pptx_document)
+
+        new_doc.add_paragraph(text)
+
+        # Define the path to save the new DOCX file with extracted content
+        output_docx_path = os.path.join("extracted_data/text_only", "extracted_text_from_pptx.docx")
+        new_doc.save(output_docx_path)  # Save the extracted content into the new DOCX file
+
+        # Confirm that the file was saved
+        assert os.path.exists(output_docx_path), "Failed to save the extracted text to a new DOCX file."
+        return output_docx_path

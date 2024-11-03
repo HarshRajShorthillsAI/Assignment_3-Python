@@ -40,8 +40,8 @@ This tool provides functionality to extract text, images, tables, and URLs from 
 - [x] Extract images from a file containing only images.
 - [x] Extract URLs from a file containing only URLs.
 - [x] Extract tables from a file containing only tables.
-- [ ] Extract mixed content (text, images, URLs, tables) from a file.
-- [ ] Extract formatted text and verify formatting is preserved.
+- [x] Extract mixed content (text, images, URLs, tables) from a file.
+- [x] Extract formatted text and verify formatting is preserved.
 - [ ] Attempt to extract content from a file with password protection
 - [ ] Attempt to extract content from a file with password protection
 - [ ] Handle files with partial data corruption (e.g., half-loaded images).
